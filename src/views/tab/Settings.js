@@ -122,8 +122,91 @@ const SettingsView = ({ navigation }) => {
     })();
   }, []);
 
+  const tabs = [
+    {
+      id: 'darkMode',
+      title: strings.mode,
+      switch: true,
+      icon: <DarkModeIcon width={24} color={mode.colors.icon} />,
+      switchComp: (
+        <Switch
+          style={{ marginLeft: 'auto', width: 36, height: 24 }}
+          value={darkMode}
+          onValueChange={() => toggleDarkMode(darkMode)}
+          trackColor={{
+            false: '#c4c4c4',
+            true: mode.colors.primary,
+          }}
+          thumbColor={'#f4f3f4'}
+        />
+      ),
+    },
+    {
+      id: 'notifications',
+      title: strings.notification,
+      switch: true,
+      icon: <NotificationIcon width={24} color={mode.colors.icon} />,
+      switchComp: (
+        <Switch
+          style={{ marginLeft: 'auto', width: 36, height: 24 }}
+          onValueChange={() => toggleNotifications(enableNotifications)}
+          value={enableNotifications}
+          trackColor={{ false: '#c4c4c4', true: mode.colors.primary }}
+          thumbColor={'#f4f3f4'}
+        />
+      ),
+    },
+    {
+      id: 'block',
+      title: strings.block,
+      switch: true,
+      icon: <Close color={mode.colors.icon} />,
+      switchComp: (
+        <Switch
+          style={{ marginLeft: 'auto', width: 36, height: 24 }}
+          onValueChange={setIsJSEnabled}
+          value={!isJSEnabled}
+          trackColor={{ false: '#c4c4c4', true: mode.colors.primary }}
+          thumbColor={'#f4f3f4'}
+        />
+      ),
+    },
+    {
+      id: 'timeToRead',
+      title: strings.timeSpent,
+      switch: false,
+      icon: <TimeIcon2 width={24} color={mode.colors.icon} />,
+    },
+    {
+      id: 'language',
+      title: strings.lang,
+      switch: false,
+      icon: <Language width={24} color={mode.colors.icon} />,
+    },
+    {
+      id: 'help',
+      title: strings.help,
+      switch: false,
+      icon: <HelpIcon width={24} color={mode.colors.icon} />,
+    },
+    {
+      id: 'sources',
+      title: 'News Sources',
+      switch: false,
+      icon: <Sources size={24} color={mode.colors.icon} />,
+    },
+  ];
+
   const showTimeChart = () => {
     setTimeStatus(!timeStatus);
+  };
+
+  const toggleHelp = () => {
+    setAddTodoVisible(!addTodoVisible);
+  };
+
+  const toggleSources = () => {
+    setSourcesVisible(!sourcesVisible);
   };
 
   const onLang = async (key) => {
@@ -135,81 +218,6 @@ const SettingsView = ({ navigation }) => {
       console.log(`error when clicked change language(${key}) button`, err);
     }
   };
-
-  const tabs = [
-    // {
-    //   id: 'darkMode',
-    //   title: strings.mode,
-    //   switch: true,
-    //   icon: <DarkModeIcon width={24} color={mode.colors.icon} />,
-    //   switchComp: (
-    //     <Switch
-    //       style={{ marginLeft: 'auto', width: 36, height: 24 }}
-    //       value={darkMode}
-    //       onValueChange={() => toggleDarkMode(darkMode)}
-    //       trackColor={{
-    //         false: '#c4c4c4',
-    //         true: mode.colors.primary,
-    //       }}
-    //       thumbColor={'#f4f3f4'}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: 'notifications',
-    //   title: strings.notification,
-    //   switch: true,
-    //   icon: <NotificationIcon width={24} color={mode.colors.icon} />,
-    //   switchComp: (
-    //     <Switch
-    //       style={{ marginLeft: 'auto', width: 36, height: 24 }}
-    //       onValueChange={() => toggleNotifications(enableNotifications)}
-    //       value={enableNotifications}
-    //       trackColor={{ false: '#c4c4c4', true: mode.colors.primary }}
-    //       thumbColor={'#f4f3f4'}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: 'block',
-    //   title: strings.block,
-    //   switch: true,
-    //   icon: <Close color={mode.colors.icon} />,
-    //   switchComp: (
-    //     <Switch
-    //       style={{ marginLeft: 'auto', width: 36, height: 24 }}
-    //       onValueChange={setIsJSEnabled}
-    //       value={!isJSEnabled}
-    //       trackColor={{ false: '#c4c4c4', true: mode.colors.primary }}
-    //       thumbColor={'#f4f3f4'}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: 'timeToRead',
-    //   title: strings.timeSpent,
-    //   switch: false,
-    //   icon: <TimeIcon2 width={24} color={mode.colors.icon} />,
-    // },
-    // {
-    //   id: 'language',
-    //   title: strings.lang,
-    //   switch: false,
-    //   icon: <Language width={24} color={mode.colors.icon} />,
-    // },
-    // {
-    //   id: 'help',
-    //   title: strings.help,
-    //   switch: false,
-    //   icon: <HelpIcon width={24} color={mode.colors.icon} />,
-    // },
-    {
-      id: 'sources',
-      title: 'News Sources',
-      switch: false,
-      icon: <Sources size={24} color={mode.colors.icon} />,
-    },
-  ];
 
   useFocusEffect(
     useCallback(() => {
@@ -233,12 +241,11 @@ const SettingsView = ({ navigation }) => {
       { cancelable: true },
     );
 
-  const toggleHelp = () => {
-    setAddTodoVisible(!addTodoVisible);
-  };
-
-  const toggleSources = () => {
-    setSourcesVisible(!sourcesVisible);
+  const buttonSetter = (k) => {
+    if (strings.preferences.startsWith(k)) {
+      return [true, '#b9b9b9'];
+    }
+    return [false, '#f4f3f4'];
   };
 
   const renderItem = ({ item }) => (
@@ -275,13 +282,6 @@ const SettingsView = ({ navigation }) => {
       )}
     </View>
   );
-
-  const buttonSetter = (k) => {
-    if (strings.preferences.startsWith(k)) {
-      return [true, '#b9b9b9'];
-    }
-    return [false, '#f4f3f4'];
-  };
 
   return (
     <View

@@ -94,6 +94,7 @@ const Mentions = ({ navigation }) => {
     </TouchableOpacity>
   );
 
+  // TODO change FlatList
   return (
     <View
       style={{

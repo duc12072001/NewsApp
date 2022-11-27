@@ -121,13 +121,6 @@ const SaveView = ({ navigation }) => {
 export default SaveView;
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    height: 44,
-    width: '100%',
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   leftButton: {
     position: 'absolute',
     left: 0,
@@ -142,8 +135,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  userInfoTextContainer: {
-    marginLeft: 12,
+  headerContainer: {
+    height: 44,
+    width: '100%',
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   preferences: {
     // height: (Dimensions.get('screen').height - 44 - 84) / 14,
@@ -167,5 +164,8 @@ const styles = StyleSheet.create({
   },
   userInfoText: {
     marginTop: 6,
+  },
+  userInfoTextContainer: {
+    marginLeft: 12,
   },
 });
