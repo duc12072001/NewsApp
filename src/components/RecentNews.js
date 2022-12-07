@@ -101,7 +101,7 @@ const RecentNews = ({
         <Text
           style={{
             fontSize: 22,
-            paddingVertical: 10,
+            // paddingVertical: 10,
             color: theme.colors.icon,
           }}
         >
@@ -169,12 +169,15 @@ const RecentNews = ({
 
       <FlatList
         style={{ width: '100%', height: '100%' }}
-        initialNumToRender={7}
+        initialNumToRender={4}
         data={articles}
         keyExtractor={(item) => item.url}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
-        ItemSeparatorComponent={() => <View style={{ marginBottom: 12 }} />}
+        ItemSeparatorComponent={() => <View style={{ marginBottom: 12 }}/>}
+        removeClippedSubviews={true} 
+        maxToRenderPerBatch={8}
+        windowSize={8}
       />
     </View>
   );
@@ -207,7 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: { width: windowWidth / 2 - 100, height: '99%', borderRadius: 6 },
+  image: { width: windowWidth / 2 - 100 , height: '99%', borderRadius: 6 },
   title: {
     fontSize: 12,
     fontWeight: 'bold',

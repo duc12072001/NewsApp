@@ -30,7 +30,7 @@ const Header = ({ setQuery, theme, query, setIsSubmit }) => {
       <TouchableOpacity style={styles.left}>
         <NewsIcon width={24} color={theme.colors.icon} />
         <Text style={[styles.leftText, { color: theme.colors.icon }]}>
-          NEWS
+          NEWSAPP
         </Text>
       </TouchableOpacity>
       {/* right */}
@@ -53,7 +53,7 @@ const Header = ({ setQuery, theme, query, setIsSubmit }) => {
             ]}
             onFocus={() => onToggleSearchFocus(true)}
             onBlur={() => onToggleSearchFocus(false)}
-            placeholder="Search"
+            placeholder="Search news"
             placeholderTextColor={theme.colors.icon}
             onChangeText={(query) => setQuery(query)}
             value={query}
@@ -115,10 +115,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    borderWidth: 0.2,
+    borderWidth: 1,
     width: '100%',
     height: 32,
-    borderRadius: 3,
+    borderRadius: 10,
     paddingLeft: 12,
     paddingVertical: 0,
     marginRight: 6,

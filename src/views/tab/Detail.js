@@ -97,7 +97,6 @@ const DetailView = ({ route, navigation }) => {
           }
         }
       } catch (err) {
-        console.log('error while getting comments', err);
       }
     });
 
@@ -162,7 +161,6 @@ const DetailView = ({ route, navigation }) => {
         authButton();
       }
     } catch (err) {
-      console.log('error while adding comment to article', err.message);
     }
 
     setCommentText('');
@@ -202,7 +200,6 @@ const DetailView = ({ route, navigation }) => {
         authButton();
       }
     } catch (err) {
-      console.log('error when clicked bookmark button', err.message);
     }
   };
 
@@ -232,7 +229,6 @@ const DetailView = ({ route, navigation }) => {
         await ref.set({ ...article });
       }
     } catch (err) {
-      console.log('error when clicked UNbookmark button', err);
     }
   };
 
@@ -250,22 +246,21 @@ const DetailView = ({ route, navigation }) => {
 
   const onShare = async () => {
     try {
-      let text = `${data.title} \n\nSee more about the news...\nDownload World News App\n`;
+      let text = `${data.url}\n`;
       if (Platform.OS === 'android') {
         text = text.concat(
-          'https://play.google.com/store/apps/details?id=com.tdksozlukreactnative',
+          ' ',
         );
       } else {
         text = text.concat('https://itunes.apple.com');
       }
       await Share.share({
-        title: 'Cekmecem News',
+        title: 'NewsApp',
         // message: data.title,
         message: text,
-        url: 'app://cekmecemnews',
+        url: '',
       });
     } catch (err) {
-      console.log('error while trying to share a news', err.message);
     }
   };
 

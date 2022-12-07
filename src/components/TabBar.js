@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   otherButtons: {
     flex: 1,
     // flexDirection: 'column',
-    height: 56,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 9999,

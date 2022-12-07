@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   View,
   Linking,
+  Image,
 } from 'react-native';
 import {
   Avatar,
@@ -122,15 +123,28 @@ const SettingsView = ({ navigation }) => {
     })();
   }, []);
 
+  const showTimeChart = () => {
+    setTimeStatus(!timeStatus);
+  };
+
+  const onLang = async (key) => {
+    try {
+      changeLanguage(key);
+      toggleLangModal(true);
+      await AsyncStorage.setItem('appLanguage', key);
+    } catch (err) {
+    }
+  };
+
   const tabs = [
     {
       id: 'darkMode',
       title: strings.mode,
       switch: true,
-      icon: <DarkModeIcon width={24} color={mode.colors.icon} />,
+      icon: <DarkModeIcon width={28} color={mode.colors.icon} />,
       switchComp: (
         <Switch
-          style={{ marginLeft: 'auto', width: 36, height: 24 }}
+          style={{ marginLeft: 'auto', width: 36, height: 24}}
           value={darkMode}
           onValueChange={() => toggleDarkMode(darkMode)}
           trackColor={{
@@ -145,7 +159,7 @@ const SettingsView = ({ navigation }) => {
       id: 'notifications',
       title: strings.notification,
       switch: true,
-      icon: <NotificationIcon width={24} color={mode.colors.icon} />,
+      icon: <NotificationIcon width={28} color={mode.colors.icon} />,
       switchComp: (
         <Switch
           style={{ marginLeft: 'auto', width: 36, height: 24 }}
@@ -160,7 +174,7 @@ const SettingsView = ({ navigation }) => {
       id: 'block',
       title: strings.block,
       switch: true,
-      icon: <Close color={mode.colors.icon} />,
+      icon: <Close  width={28} color={mode.colors.icon} />,
       switchComp: (
         <Switch
           style={{ marginLeft: 'auto', width: 36, height: 24 }}
@@ -175,49 +189,27 @@ const SettingsView = ({ navigation }) => {
       id: 'timeToRead',
       title: strings.timeSpent,
       switch: false,
-      icon: <TimeIcon2 width={24} color={mode.colors.icon} />,
+      icon: <TimeIcon2 width={28} color={mode.colors.icon} />,
     },
     {
       id: 'language',
       title: strings.lang,
       switch: false,
-      icon: <Language width={24} color={mode.colors.icon} />,
+      icon: <Language width={28} color={mode.colors.icon} />,
     },
     {
       id: 'help',
       title: strings.help,
       switch: false,
-      icon: <HelpIcon width={24} color={mode.colors.icon} />,
+      icon: <HelpIcon width={28} color={mode.colors.icon} />,
     },
     {
       id: 'sources',
       title: 'News Sources',
       switch: false,
-      icon: <Sources size={24} color={mode.colors.icon} />,
+      icon: <Sources size={28} color={mode.colors.icon} />,
     },
   ];
-
-  const showTimeChart = () => {
-    setTimeStatus(!timeStatus);
-  };
-
-  const toggleHelp = () => {
-    setAddTodoVisible(!addTodoVisible);
-  };
-
-  const toggleSources = () => {
-    setSourcesVisible(!sourcesVisible);
-  };
-
-  const onLang = async (key) => {
-    try {
-      changeLanguage(key);
-      toggleLangModal(true);
-      await AsyncStorage.setItem('appLanguage', key);
-    } catch (err) {
-      console.log(`error when clicked change language(${key}) button`, err);
-    }
-  };
 
   useFocusEffect(
     useCallback(() => {
@@ -229,8 +221,8 @@ const SettingsView = ({ navigation }) => {
 
   const authButton = () =>
     Alert.alert(
-      'Authentication required',
-      'You have to login to see your time spent',
+      'Authentication',
+      'You will be redirect to login section',
       [
         {
           text: 'Cancel',
@@ -241,21 +233,22 @@ const SettingsView = ({ navigation }) => {
       { cancelable: true },
     );
 
-  const buttonSetter = (k) => {
-    if (strings.preferences.startsWith(k)) {
-      return [true, '#b9b9b9'];
-    }
-    return [false, '#f4f3f4'];
+  const toggleHelp = () => {
+    setAddTodoVisible(!addTodoVisible);
+  };
+
+  const toggleSources = () => {
+    setSourcesVisible(!sourcesVisible);
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.preferences}>
+    <View style={[styles.preferences, {backgroundColor: mode.colors.preference}]}>
       <View style={styles.border}>{item.icon}</View>
       <Text
         style={{
           paddingLeft: 24,
           fontSize: 16,
-          color: mode.colors.icon,
+          color: mode.colors.preferenceText,
         }}
       >
         {item.title}
@@ -282,6 +275,13 @@ const SettingsView = ({ navigation }) => {
       )}
     </View>
   );
+
+  const buttonSetter = (k) => {
+    if (strings.preferences.startsWith(k)) {
+      return [true, '#b9b9b9'];
+    }
+    return [false, '#f4f3f4'];
+  };
 
   return (
     <View
@@ -321,10 +321,10 @@ const SettingsView = ({ navigation }) => {
           {user && (
             <>
               <View style={styles.userInfoTextContainer}>
-                <Text style={{ color: mode.colors.icon, marginTop: 6 }}>
+                <Text style={{ color: mode.colors.preferenceText, marginTop: 6 }}>
                   {dbUser?.name}
                 </Text>
-                <Text style={{ color: mode.colors.icon, marginTop: 6 }}>
+                <Text style={{ color: mode.colors.preferenceText, marginTop: 6 }}>
                   {dbUser?.email}
                 </Text>
               </View>
@@ -336,7 +336,7 @@ const SettingsView = ({ navigation }) => {
                 <TouchableOpacity
                   style={[
                     styles.logoutButton,
-                    { backgroundColor: mode.colors.primary },
+                    { backgroundColor: mode.colors.primary, width: 100 },
                   ]}
                   onPress={() => logout()}
                 >
@@ -384,7 +384,7 @@ const SettingsView = ({ navigation }) => {
         <View
           style={{
             flex: 1,
-            padding: 30,
+            padding: 10,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -394,31 +394,37 @@ const SettingsView = ({ navigation }) => {
             style={[
               styles.languageButton,
               { backgroundColor: buttonSetter('Pre')[1] },
+              { flexDirection: 'row'}
             ]}
             onPress={() => onLang('en')}
             disabled={buttonSetter('Pre')[0]}
           >
-            <Text style={{ fontSize: 22 }}>English</Text>
+            <Image source={require('../../assets/united-states.png')} style={styles.image}/>
+            <Text style={[{ fontSize: 18 }, { flex: 1}]}>English</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.languageButton,
               { backgroundColor: buttonSetter('优先')[1] },
+              { flexDirection: 'row'}
             ]}
             onPress={() => onLang('zh')}
             disabled={buttonSetter('优先')[0]}
           >
-            <Text style={{ fontSize: 22 }}>Chinese</Text>
+            <Image source={require('../../assets/china.png')} style={styles.image}/>
+            <Text style={[{ fontSize: 18 }, { flex: 1}]}>Chinese</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.languageButton,
-              { backgroundColor: buttonSetter('Ter')[1] },
+              { backgroundColor: buttonSetter('Cài')[1] },
+              { flexDirection: 'row'}
             ]}
-            onPress={() => onLang('tr')}
-            disabled={buttonSetter('Ter')[0]}
+            onPress={() => onLang('vn')}
+            disabled={buttonSetter('Cài')[0]}
           >
-            <Text style={{ fontSize: 22 }}>Turkish</Text>
+            <Image source={require('../../assets/vietnam.png')} style={styles.image}/>
+            <Text style={[{ fontSize: 18 }, { flex: 1}]}>Tiếng Việt</Text>
           </TouchableOpacity>
         </View>
       </BottomSheet>
@@ -571,11 +577,9 @@ const styles = StyleSheet.create({
     height: (windowHeight - 44) / 14,
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 50,
   },
   border: {
-    borderWidth: 1,
-    borderRadius: 6,
-    borderColor: '#c4c4c4',
     width: 40,
     height: 40,
     justifyContent: 'center',
@@ -588,7 +592,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 48,
-    width: Dimensions.get('screen').width / 4,
+    width: Dimensions.get('screen').width / 4 + 25,
     backgroundColor: '#f4f3f4',
     borderWidth: 1,
     borderRadius: 6,
@@ -600,7 +604,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 32,
     borderRadius: 6,
-    borderWidth: 1,
+    borderWidth: 2,
     marginHorizontal: 24,
   },
   logoutButton: {
@@ -619,4 +623,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingVertical: 10,
   },
+  image: {
+    flex: 0.5,
+    resizeMode: 'contain',
+    aspectRatio: 1.5, 
+  }
 });

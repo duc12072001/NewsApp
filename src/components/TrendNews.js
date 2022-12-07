@@ -22,7 +22,7 @@ const TrendNews = ({ navigation, trendNews, str, theme }) => {
           visible={trendNews ? true : false}
           shimmerStyle={{
             borderRadius: 6,
-            width: windowWidth / 1.5,
+            width: windowWidth / 1.25,
             height: windowHeight / 3,
           }}
         />
@@ -32,7 +32,7 @@ const TrendNews = ({ navigation, trendNews, str, theme }) => {
           shimmerStyle={{
             borderRadius: 6,
             marginLeft: 12,
-            width: windowWidth / 1.5,
+            width: windowWidth / 1.25,
             height: windowHeight / 3,
           }}
         />
@@ -40,21 +40,24 @@ const TrendNews = ({ navigation, trendNews, str, theme }) => {
 
       <FlatList
         decelerationRate={0}
-        snapToInterval={windowWidth / 1.5 + 12}
+        snapToInterval={windowWidth / 1.25 + 14}
         snapToAlignment={'center'}
         style={{ width: '100%', height: '100%' }}
         data={trendNews}
         keyExtractor={(item) => item.url.toString()}
-        initialNumToRender={7}
+        initialNumToRender={4}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        removeClippedSubviews={true} 
+        maxToRenderPerBatch={8}
+        windowSize={8}
         ItemSeparatorComponent={() => <View style={{ marginRight: 12 }} />}
         renderItem={({ item }) => (
           <View style={styles.trendNews}>
             <TouchableOpacity
               style={{
                 height: windowHeight / 3,
-                width: windowWidth / 1.5,
+                width: windowWidth / 1.25,
               }}
               onPress={() =>
                 navigation.navigate('Detail', {

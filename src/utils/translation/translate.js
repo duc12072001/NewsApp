@@ -1,12 +1,13 @@
 import LocalizedStrings from 'react-native-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { english, chinese, turkish } from './languages';
+import { english, chinese, turkish, vietnamese } from './languages';
 
 let strings = new LocalizedStrings({
   en: english,
   tr: turkish,
   zh: chinese,
+  vn: vietnamese,
 });
 
 export const firstLanguage = async () => {
@@ -16,7 +17,6 @@ export const firstLanguage = async () => {
       strings.setLanguage(value);
     }
   } catch (err) {
-    console.log('error while setting default/fallback language', err.message);
   }
 };
 
@@ -26,6 +26,5 @@ export const changeLanguage = (languageKey) => {
   try {
     strings.setLanguage(languageKey);
   } catch (err) {
-    console.log('errror while setting language', err.message);
   }
 };

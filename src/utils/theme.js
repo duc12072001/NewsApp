@@ -13,6 +13,7 @@ const palette = {
   tab: '#f9f9f9',
   tabDark: '#121214',
   card: '#202024',
+  lightBlue: '#bfd8ec',
 };
 
 export const theme = {
@@ -26,6 +27,8 @@ export const theme = {
     tabBar: palette.tab,
     icon: palette.midGray,
     card: palette.lightWhite,
+    preference: palette.lightBlue,
+    preferenceText: palette.darkGray,
   },
   spacing: {
     s: 8,
@@ -64,5 +67,7 @@ export const darkTheme = {
     tabBar: palette.tabDark,
     icon: palette.white,
     card: palette.card,
+    preference: palette.lightGray,
+    preferenceText: palette.white,
   },
 };

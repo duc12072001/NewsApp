@@ -86,7 +86,6 @@ const HomeView = ({ navigation }) => {
           }
         }
       } catch (err) {
-        console.log('error while setting countryCode', err);
       }
     })();
   }, []);
@@ -102,7 +101,6 @@ const HomeView = ({ navigation }) => {
             }
           })
           .catch((error) => {
-            console.log('error while fetching searchNews: ', error);
           });
       } else {
         getTopHeadlines(countryCode)
@@ -113,7 +111,6 @@ const HomeView = ({ navigation }) => {
             }
           })
           .catch((error) => {
-            console.log('error while fetching topHeadlines', error);
           });
       }
     }
@@ -130,7 +127,6 @@ const HomeView = ({ navigation }) => {
             setTrendNews(data);
           })
           .catch((error) => {
-            console.log('error while fetching topHeadlines: ', error);
           });
       } else {
         getCategoryNews(selectedTab, countryCode)
@@ -138,7 +134,6 @@ const HomeView = ({ navigation }) => {
             setTrendNews(data);
           })
           .catch((error) => {
-            console.log('error while fetching categoryNews: ', error);
           });
       }
     }

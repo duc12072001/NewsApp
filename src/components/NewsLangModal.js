@@ -76,7 +76,7 @@ const ConnectButton = React.memo(({ onPress, mode }) => {
         style={{
           height: ITEM_HEIGHT * 2,
           width: 4,
-          backgroundColor: mode.colors.primary,
+          // backgroundColor: mode.colors.primary,
         }}
       />
       <TouchableOpacity
@@ -84,8 +84,8 @@ const ConnectButton = React.memo(({ onPress, mode }) => {
         style={{
           paddingVertical: 10,
           paddingHorizontal: 12,
-          borderRadius: 6,
-          borderTopLeftRadius: 0,
+          borderRadius: 10,
+          // borderTopLeftRadius: 0,
           backgroundColor: mode.colors.primary,
           alignItems: 'center',
           justifyContent: 'center',

@@ -13,7 +13,6 @@ export const ThemeProvider = ({ children }) => {
       setDarkMode(!value);
       await AsyncStorage.setItem('theme', JSON.stringify(!value));
     } catch (err) {
-      console.log('error when storing theme mode', err);
     }
   };
 
@@ -26,7 +25,6 @@ export const ThemeProvider = ({ children }) => {
           setDarkMode(parsedVal);
         }
       } catch (err) {
-        console.log('error while getting theme mode from storage', err);
       }
     })();
   }, [darkMode]);
@@ -41,4 +39,3 @@ export const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider value={values}>{children}</ThemeContext.Provider>
   );
 };
-

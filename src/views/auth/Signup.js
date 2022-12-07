@@ -31,7 +31,7 @@ const SignupView = ({ navigation }) => {
       <View style={styles.logoFrame}>
         <NewsIcon width={72} color={theme.colors.icon} />
         <Text style={[styles.logo, { color: theme.colors.foreground }]}>
-          CKMCM
+          NewsApp
         </Text>
       </View>
       <FormInput
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'black',
     marginBottom: 24,
-    letterSpacing: 10.5,
+    letterSpacing: 5.5,
   },
   close: {
     position: 'absolute',

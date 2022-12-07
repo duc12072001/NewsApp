@@ -59,7 +59,6 @@ const Mentions = ({ navigation }) => {
       }
       setIsRefreshing(false);
     } catch (err) {
-      console.log('error while fetching commented news', err.message);
     }
   };
 
@@ -94,7 +93,6 @@ const Mentions = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  // TODO change FlatList
   return (
     <View
       style={{

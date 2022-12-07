@@ -90,7 +90,6 @@ export const TabNavigator = () => {
           }
         }, 1000);
       } catch (err) {
-        console.log('error while creating timeSpent', err.message);
       }
     })();
 
@@ -135,7 +134,6 @@ export const TabNavigator = () => {
               await timeRef.doc(user.uid).set(userDoc);
             }
           } catch (err) {
-            console.log('error while updating user timeSpent', err.message);
           }
         })();
         break;
